@@ -1,10 +1,4 @@
-Here’s your Leave Management System README formatted for clarity:
-
-```markdown
 # Leave Management System
-
-![Leave Management System Screenshot](public/logo.svg)
-
 A modern, responsive leave management system designed to streamline employee leave requests, approvals, and tracking for organizations of all sizes.
 
 ## Live Demo
@@ -116,6 +110,3 @@ For questions or feedback, please contact [your email].
 ---
 
 **Note**: This is a frontend-only demo application with mocked backend services. In a production environment, you would need to connect it to a real backend API.
-```
-
-Feel free to update the placeholders like "yourusername" and "your email" with the actual details. Let me know if you'd like any further adjustments!
