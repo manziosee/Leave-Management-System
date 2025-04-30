@@ -6,7 +6,7 @@ import Button from '../ui/Button';
 import { FcGoogle } from 'react-icons/fc';
 
 const LoginForm: React.FC = () => {
-  const { signIn, loading, error } = useAuth();
+  const { signIn, signInWithGoogle, loading, error } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [showPassword, setShowPassword] = useState(false);
@@ -27,9 +27,13 @@ const LoginForm: React.FC = () => {
     }
   };
 
-  const handleGoogleLogin = () => {
-    // This would be connected to the backend Google auth endpoint
-    console.log('Google login clicked');
+  const handleGoogleLogin = async () => {
+    try {
+      await signInWithGoogle();
+      navigate(from, { replace: true });
+    } catch (error) {
+      console.error('Google login failed:', error);
+    }
   };
   
   return (
