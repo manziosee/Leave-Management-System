@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: leave_management
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/leave_management
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: password
+    depends_on:
+      - postgres
+
+  leave-service:
+    build: ./leave-service
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: admin
+      DB_PASSWORD: password
+      DB_NAME: leave_management
+      JWT_SECRET: your_jwt_secret
+      AUTH_SERVICE_URL: http://auth-service:8080
+    depends_on:
+      - postgres
+      - auth-service
+
+volumes:
+  postgres_data:
