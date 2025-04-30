@@ -10,7 +10,7 @@ const AppLayout: React.FC = () => {
   const openSidebar = () => setSidebarOpen(true);
   
   return (
-    <div className="h-screen flex bg-gray-50">
+    <div className="h-screen flex bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
       {/* Sidebar for mobile */}
       <Sidebar
         isMobile={true}
@@ -31,7 +31,7 @@ const AppLayout: React.FC = () => {
       <div className="flex flex-col flex-1 w-0 overflow-hidden">
         <Navbar onOpenSidebar={openSidebar} />
         
-        <main className="flex-1 relative overflow-y-auto py-6 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <main className="flex-1 relative overflow-y-auto py-6 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
           <Outlet />
         </main>
       </div>
