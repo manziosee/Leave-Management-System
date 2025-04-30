@@ -29,11 +29,14 @@ const Logo: React.FC<LogoProps> = ({
 
   return (
     <div className={`flex items-center space-x-2 ${className}`}>
-      <Calendar className={`${sizeClasses[size].icon} text-teal-600 dark:text-teal-400`} />
+      <div className="relative">
+        <div className="absolute inset-0 bg-teal-600 rounded-lg transform rotate-3 scale-105" />
+        <Calendar className={`${sizeClasses[size].icon} text-white relative z-10 p-1`} />
+      </div>
       {variant === 'full' && (
         <span className={`${sizeClasses[size].text} font-bold text-gray-900 dark:text-white tracking-tight`}>
           <span className="text-teal-600 dark:text-teal-400">Leave</span>
-          Manager
+          <span className="bg-gradient-to-r from-teal-600 to-teal-500 bg-clip-text text-transparent dark:from-teal-400 dark:to-teal-300">Manager</span>
         </span>
       )}
     </div>

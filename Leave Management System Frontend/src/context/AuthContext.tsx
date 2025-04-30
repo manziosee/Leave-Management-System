@@ -21,7 +21,6 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Create a separate component for the provider
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -41,9 +40,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     const checkExistingSession = async () => {
       try {
-        // Check for existing session in localStorage (simulating a real auth system)
         const savedUser = localStorage.getItem('user');
-        
         if (savedUser) {
           setUser(JSON.parse(savedUser));
         }
@@ -57,6 +54,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     checkExistingSession();
   }, []);
 
+  // For development purposes, auto-login
+  useEffect(() => {
+    if (!user && !loading) {
+      localStorage.setItem('user', JSON.stringify(mockUser));
+      setUser(mockUser);
+    }
+  }, [loading]);
+
   const signIn = async (email: string, password: string) => {
     try {
       setLoading(true);
@@ -64,7 +69,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       if (email && password) {
-        // Save user to localStorage to persist session
         localStorage.setItem('user', JSON.stringify(mockUser));
         setUser(mockUser);
       } else {
@@ -84,8 +88,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       if (email && password) {
-        // In a real app, we would create a new user account here
-        // For demo purposes, we'll just sign in with the mock user
         localStorage.setItem('user', JSON.stringify(mockUser));
         setUser(mockUser);
       } else {
@@ -126,7 +128,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
-// Custom hook
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {

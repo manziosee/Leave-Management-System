@@ -21,7 +21,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isMobile, isOpen, onClose }) => {
   const isAdmin = user.role === UserRole.ADMIN;
 
   const navItems = [
-    { name: 'Dashboard', to: '/', icon: <Home size={20} /> },
+    { name: 'Dashboard', to: '/leave-history', icon: <Home size={20} /> },
     { name: 'Leave Application', to: '/apply-leave', icon: <FileText size={20} /> },
     { name: 'Calendar', to: '/calendar', icon: <Calendar size={20} /> },
     ...(isManager || isAdmin ? [{ name: 'Approvals', to: '/approvals', icon: <FileText size={20} /> }] : []),

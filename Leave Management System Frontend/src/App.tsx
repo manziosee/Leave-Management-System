@@ -19,21 +19,20 @@ const App: React.FC = () => {
         <LeaveProvider>
           <Router>
             <Routes>
+              {/* Public routes */}
               <Route path="/" element={<Landing />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               
-              <Route path="/dashboard" element={
-                <ProtectedRoute>
-                  <AppLayout />
-                </ProtectedRoute>
-              }>
-                <Route index element={<Dashboard />} />
-                <Route path="apply-leave" element={<ApplyLeave />} />
-                <Route path="calendar" element={<Calendar />} />
+              {/* Protected routes */}
+              <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/apply-leave" element={<ApplyLeave />} />
+                <Route path="/calendar" element={<Calendar />} />
               </Route>
               
-              <Route path="*" element={<Navigate to="/" replace />} />
+              {/* Fallback route */}
+              <Route path="*" element={<Navigate to="/dashboard" replace />} />
             </Routes>
           </Router>
         </LeaveProvider>
