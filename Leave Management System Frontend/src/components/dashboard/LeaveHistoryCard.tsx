@@ -9,6 +9,7 @@ interface LeaveHistoryCardProps {
   className?: string;
 }
 
+
 const LeaveHistoryCard: React.FC<LeaveHistoryCardProps> = ({ 
   leaves,
   className = ''
