@@ -18,6 +18,14 @@ export enum UserRole {
   ADMIN = 'Admin'
 }
 
+export type NotificationType = 'success' | 'error' | 'warning' | 'info';
+
+export interface Notification {
+  id: string;
+  message: string;
+  type: NotificationType;
+}
+
 export interface User {
   id: string;
   name: string;
