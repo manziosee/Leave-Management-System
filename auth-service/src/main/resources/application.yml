@@ -1,0 +1,38 @@
+spring:
+  profiles:
+    active: dev
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Auth_DB
+    username: postgres
+    password: 2001
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+
+app:
+  jwtSecret: africahrSecretKey
+  jwtExpirationMs: 86400000
+  oauth2:
+    client:
+      registration:
+        google:
+          client-id: your-google-client-id
+          client-secret: your-google-client-secret
+          redirect-uri: "{baseUrl}/api/auth/google/callback"
+          scope:
+            - email
+            - profile
+
+server:
+  port: 8080
+
+logging:
+  level:
+    org.springframework.security: DEBUG
