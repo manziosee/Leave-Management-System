@@ -53,4 +53,9 @@ public class UserResponse {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setRoles'");
     }
+
+    public void setUsername(String username) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setUsername'");
+    }
 }

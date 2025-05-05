@@ -7,32 +7,93 @@ spring:
     username: postgres
     password: 2001
     driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 1
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
-    show-sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: your-email@gmail.com
+    password: your-email-password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
+          ssl.trust: smtp.gmail.com
 
 app:
-  jwtSecret: africahrSecretKey
-  jwtExpirationMs: 86400000
+  jwtSecret: africahr-dev-secret-key-1234567890
+  jwtExpirationMs: 86400000  # 24 hours
+  frontend-url: http://localhost:3000
   oauth2:
     client:
       registration:
         google:
           client-id: your-google-client-id
           client-secret: your-google-client-secret
-          redirect-uri: "{baseUrl}/api/auth/google/callback"
+          redirect-uri: "{baseUrl}/api/auth/oauth2/callback/google"
           scope:
             - email
             - profile
+        github:
+          client-id: your-github-client-id
+          client-secret: your-github-client-secret
+          redirect-uri: "{baseUrl}/api/auth/oauth2/callback/github"
+          scope:
+            - user:email
+            - read:user
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    url: /api/v3/api-docs
+    config-url: /api/v3/api-docs/swagger-config
+    urls:
+      - url: /api/v3/api-docs
+        name: API
+    tags-sorter: alpha
+    operations-sorter: alpha
+  paths-to-match: /api/**
 
 server:
-  port: 8080
+  port: 8081
+  servlet:
+    context-path: /api
+  error:
+    include-message: always
+    include-stacktrace: on_param
 
 logging:
   level:
+    root: INFO
+    org.springframework.web: DEBUG
     org.springframework.security: DEBUG
+    com.africahr.auth: DEBUG
+  file:
+    name: logs/auth-service-dev.log
+    path: ./logs
+    max-history: 30
+    max-size: 10MB
