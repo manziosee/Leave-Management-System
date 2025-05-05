@@ -1,3 +1,69 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Leave:
+ *       type: object
+ *       required:
+ *         - user
+ *         - type
+ *         - startDate
+ *         - endDate
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The auto-generated ID of the leave
+ *           example: 60f7a9b9e6b9a71f9c9f3f3f
+ *         user:
+ *           $ref: '#/components/schemas/User'
+ *           description: The user who applied for leave
+ *         type:
+ *           type: string
+ *           enum: [PTO, SICK, COMPASSIONATE, MATERNITY, UNPAID]
+ *           description: Type of leave
+ *           example: PTO
+ *         startDate:
+ *           type: string
+ *           format: date
+ *           description: Start date of leave
+ *           example: 2023-07-15
+ *         endDate:
+ *           type: string
+ *           format: date
+ *           description: End date of leave
+ *           example: 2023-07-20
+ *         reason:
+ *           type: string
+ *           description: Reason for leave (required for some types)
+ *           example: Family vacation
+ *         document:
+ *           type: string
+ *           format: uri
+ *           description: URL to supporting document
+ *           example: https://example.com/medical-certificate.pdf
+ *         status:
+ *           type: string
+ *           enum: [PENDING, APPROVED, REJECTED]
+ *           default: PENDING
+ *           description: Status of the leave request
+ *           example: APPROVED
+ *         approvedBy:
+ *           $ref: '#/components/schemas/User'
+ *           description: User who approved/rejected the leave
+ *         comments:
+ *           type: string
+ *           description: Comments from approver
+ *           example: Approved for family vacation
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           description: When the leave was created
+ *           example: 2023-07-01T10:00:00.000Z
+ *         days:
+ *           type: number
+ *           description: Calculated number of leave days (virtual property)
+ *           example: 6
+ */
 const mongoose = require('mongoose');
 
 const leaveSchema = new mongoose.Schema({

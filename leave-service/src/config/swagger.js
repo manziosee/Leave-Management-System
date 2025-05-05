@@ -1,5 +1,5 @@
 const swaggerJsdoc = require('swagger-jsdoc');
-const config = require('./config');
+const config = require('./'); // This loads config/index.js correctly
 
 const options = {
   definition: {
@@ -34,7 +34,7 @@ const options = {
       },
     ],
   },
-  apis: ['./src/routes/*.js', './src/models/*.js'], // Path to the API docs
+  apis: ['./src/routes/*.js', './src/models/*.js'], // Adjust if using .ts or other folders
 };
 
 const swaggerSpec = swaggerJsdoc(options);
